@@ -193,3 +193,13 @@ fruits = ["apple", "banana", "cherry"];
 
 for index, fruit in enumerate(fruits):
     print(index, fruit)
+
+ran = range(2,10,2);
+
+print(ran[1],type(ran));
+
+oddNumbers = [1,3,5,7,9,11];
+
+for index,num in enumerate(oddNumbers):
+    print(index," : ",num)
+
