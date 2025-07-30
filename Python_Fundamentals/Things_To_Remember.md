@@ -34,3 +34,18 @@ len("Hello") # Get length of string
 => Lists In Python.
 
 => Tuples In Python.
+
+=> Dictionary In Python
+
+=> "in" Keyeord In Python.
+
+if x in list: Check presence
+for x in list: Iterate over elements
+if key in dict: Check if key exists in dict
+for k in dict: Loop through dictionary keys
+
+=> Sets In Python
+
+=> Set Operations In Python (Union , Intersection , Difference , Subset , Superset , Disjoint and Symmetric Difference)
+
+=> Loops

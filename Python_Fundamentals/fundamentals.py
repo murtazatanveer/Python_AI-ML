@@ -106,3 +106,90 @@ l2 = [1,2,4];
 
 print(l1==l2);
 
+
+# Disctionaries
+
+student = {
+    "name" :"xyz",
+    "class": 9,
+    "age":16,
+    "marks":{
+            "eng":55,
+            "urdu":60,
+            "math":85
+    },
+}
+
+print(student["marks"]);
+
+student["interest"]=["coding","gym","netflix"];
+
+print(student);
+
+values = student.values();
+
+print(type(values));
+
+print(values);
+
+for v in values:
+    print(v);
+
+for key,values in student.items():
+    print(key," : ",values);
+
+
+# # Frequency of Words in a Sentence
+
+# sentence = "python code is fun because python code teaches logic and python code builds logic";
+
+# wordsOfSentence = sentence.split();
+
+# frequency={};
+
+# for w in wordsOfSentence:
+    
+#     if w in frequency:
+#         frequency[w] += 1;
+#     else:
+#         frequency[w]=1;
+
+
+# print(frequency , frequency.get("python"));
+
+# # print(frequency.keys());
+
+# # print(frequency.items());
+
+# list1 = [1,2,3,4,5];
+
+# list2 = list1;
+
+# list2.append(99);
+
+# print(list1);  # Output: [1, 2, 3, 4, 5, 99]
+
+# # Sets in Python
+
+# set1 = {1,2,3,4,5,2,1,6,7,5,8,9,10};
+
+# print(set1);  # Output: {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+
+# set1.add(());
+# print(set1);
+
+# print((1)==());
+
+# setA = {1,2,3,7,11,13,15,18,4,5};
+# setB = {1,2,3,4,5};
+
+# print(setA>=setB,setA.isdisjoint(setB));
+
+
+for i,j,k in [(1,2,3),(11,21,31),(50,60,70)]:
+    print(i,j,k);
+
+fruits = ["apple", "banana", "cherry"];
+
+for index, fruit in enumerate(fruits):
+    print(index, fruit)
