@@ -53,3 +53,7 @@ for k in dict: Loop through dictionary keys
 => Range Function.
 
 => Purpose and Use of Pass Keyword.
+
+=> Functions in Python
+
+=> Object Oriented Programming. (Classes , Objects , Constructor , Self and Cls Concept , Static Methods ,del)

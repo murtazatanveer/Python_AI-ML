@@ -1,15 +1,15 @@
 # Factorial of a Number
 
-num = 5;
-fact=1;
+def factorial(num):
+    fact=1;
 
-for i in range(1,num+1):
-    fact = fact*i
+    for i in range(1,num+1):
+        fact = fact*i
 
-print("Factorial of ",num," is ",fact);
+    return fact;
 
-print(type(fact));
-
+print(factorial(5));
+print(factorial(10));
 
 # Datatypes in Python
 
@@ -203,3 +203,86 @@ oddNumbers = [1,3,5,7,9,11];
 for index,num in enumerate(oddNumbers):
     print(index," : ",num)
 
+for number in [2,4,6,7]:
+    print(number);
+
+def outer():
+    def inner():
+        print("I'm inner!")
+
+    inner()  # ✅ Calling inner from inside outer
+
+outer()  # ✅ Output: I'm inner!
+
+# Object Oriented Programming
+
+class Student:
+
+    universityName = "COMSTAS"
+    location = "Abbottabad"
+
+    def __init__(self,name,age,marks):
+        self.name = name;
+        self.age = age;
+        self.marks = marks;
+        
+
+    def display(self):
+            print("\n\nName : ",self.name);
+            print("Age : ",self.age);
+            print("Marks : ",self.marks);
+            print("University : ",self.universityName);
+            print("Location : ",self.location,"\n\n");
+            
+   
+
+s1 = Student("Murtaza", 22, 85);
+
+s1.location="Islamabad"
+
+s2 = Student("Ali", 22, 90);
+
+s1.display();
+s2.display();
+
+Student.location = "Peshawar"
+
+s1.display()
+s2.display()
+
+s1.location="Abbottabad"
+
+Student.location="Lahore"
+
+s1.display();
+s2.display();
+
+class Car:
+
+    @classmethod
+    def initilizer(cls,name, model):
+        cls.name = name;
+        cls.model = model
+        
+    
+    def display(self):
+            print("\n",self.name,"\t",self.model,"\n");
+
+    @staticmethod
+    def start():
+            print("Car Started");
+
+c1 = Car();
+
+c1.initilizer("Honda Civic",2019);
+
+c2 = Car();
+
+c1.display();
+c2.display();
+c2.name = "Suzuki Swift";
+
+c2.initilizer("Honda City",2010);
+
+c1.display();
+c2.display();
