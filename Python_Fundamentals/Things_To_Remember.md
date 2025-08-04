@@ -56,4 +56,10 @@ for k in dict: Loop through dictionary keys
 
 => Functions in Python
 
-=> Object Oriented Programming. (Classes , Objects , Constructor , Self and Cls Concept , Static Methods ,del)
+=> Object Oriented Programming. (Classes , Objects , Constructor , Self and Cls Concept , Static Methods ,del , Public and Private Attributes , Super Keyword, Property Decorator)
+
+=> Type of Functions in Classes (Ststic Method , Class Method , Instance Methods)
+
+=> Encapsulation , Abstraction , Polymorphism , Inheritence
+
+=> Operators Overloading

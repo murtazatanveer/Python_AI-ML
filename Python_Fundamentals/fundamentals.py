@@ -257,6 +257,10 @@ Student.location="Lahore"
 s1.display();
 s2.display();
 
+# del(s1)
+
+# s1.display();
+
 class Car:
 
     @classmethod
@@ -286,3 +290,109 @@ c2.initilizer("Honda City",2010);
 
 c1.display();
 c2.display();
+
+# def d(x):print(x);
+
+# d(); # error
+
+class A:
+     
+    def __init__(self,x):
+        print("A's constructor called");
+        self.__x = x;
+        print("A's constructor completed");
+
+    def display(self):
+        print("Value of x in Class A is ",self.x);
+
+class B(A):
+     
+    def __init__(self,y):
+        print("B's constructor called");
+        self.__y = y;
+        super().__init__(y*2)  # Call A's constructor
+        print("B's constructor completed");
+
+    def display(self):
+        print("Value of y in Class B is ",self.y);
+        super().display();
+
+ob = B(10);
+# ob.display();
+# print(ob.__dict__);  # Error X and Y are private attributes
+
+
+class Calculator:
+
+    def __init__(self, a, b):
+        print("Calculator Initialized");
+        self.a = a
+        self.b = b
+    
+    @property
+    def add(self):
+        return self.a + self.b
+    
+    @property
+    def sub(self):
+        return self.a-self.b
+    
+    @property
+    def mul(self):
+        return self.a*self.b
+    
+    @property
+    def div(self):
+        return self.a/self.b
+    
+calc = Calculator(10, 5)
+
+print("Addition:", calc.add)
+print("Subtraction:", calc.sub)
+print("Multiplication:", calc.mul)
+print("Division:", calc.div)
+
+
+class ComplexNumber:
+    def __init__(self, real, imag):
+        self.real = real
+        self.imag = imag
+
+    def __add__(self, other):
+        return ComplexNumber(self.real + other.real, self.imag + other.imag);
+    
+n1 = ComplexNumber(5,8);
+n2 = ComplexNumber(2,3);
+
+add = n1+n2;
+
+print(add.__dict__)
+
+
+# class A:
+    
+#     def __eq__(self,other):
+#         print("Class A eq Called");
+#         return True;
+
+# class B:
+    
+#     def __eq__(self,other):
+#         print("Class B eq Called");
+#         return True;
+# a=A();
+# b=B();
+
+# print(a==b);
+
+
+# import matplotlib.pyplot as plt
+
+# x = [1, 2, 3, 4]
+# y = [2, 4, 6, 8]
+
+# plt.plot(x, y)
+# plt.title("Simple Line Graph")
+# plt.xlabel("X-axis")
+# plt.ylabel("Y-axis")
+# plt.show()
