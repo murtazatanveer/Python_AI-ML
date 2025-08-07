@@ -396,3 +396,8 @@ print(add.__dict__)
 # plt.xlabel("X-axis")
 # plt.ylabel("Y-axis")
 # plt.show()
+
+
+# print(list(i for i in range(10)));
+
+print([10,20,30]+[40,50,60]);
