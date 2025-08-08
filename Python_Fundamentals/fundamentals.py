@@ -400,4 +400,11 @@ print(add.__dict__)
 
 # print(list(i for i in range(10)));
 
-print([10,20,30]+[40,50,60]);
+# print([10,20,30]+[40,50,60]*2);
+
+# def f(n):
+#     return n*3;
+
+# l = [f(i) for i in range(0,20,2)];
+# print(l);
+

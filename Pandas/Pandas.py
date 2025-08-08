@@ -68,7 +68,7 @@ import matplotlib.pyplot as plt
 
 # Cleaning Data Using Pandas
 
-pulse = pd.read_csv("pulse.csv");
+# pulse = pd.read_csv("pulse.csv");
 
 # print(pulse.iloc[0:10]);
 
@@ -87,7 +87,7 @@ pulse = pd.read_csv("pulse.csv");
 # pulse.fillna("HELLO", inplace=True);
 # print(pulse);
 
-pulse.fillna(pulse["Calories"].mean(), inplace=True);
+# pulse.fillna(pulse["Calories"].mean(), inplace=True);
 # pulse["Calories"]=pulse["Calories"].astype(int);
 # print(pulse.info());
 # print(pulse);
@@ -114,7 +114,7 @@ pulse.fillna(pulse["Calories"].mean(), inplace=True);
 
 # print(pulse.duplicated());
 
-pulse.drop_duplicates(inplace=True);
+# pulse.drop_duplicates(inplace=True);
 
 # print(pulse);
 
@@ -150,20 +150,21 @@ pulse.drop_duplicates(inplace=True);
 
 
 # DataFrame 1: Student basic info
-df1 = pd.DataFrame({
-    'ID': [101, 102, 103],
-    'Name': ['Alice', 'Bob', 'Charlie'],
-    'Age': [20, 21, 22]
-})
+# df1 = pd.DataFrame({
+#     'ID': [101, 102, 103],
+#     'Name': ['Alice', 'Bob', 'Charlie'],
+#     'Age': [20, 21, 22]
+# })
 
-# DataFrame 2: Student academic info
-df2 = pd.DataFrame({
-    'ID': [101, 102, 104],
-    'CGPA': [3.5, 3.7, 3.9],
-    'Grade': ['A', 'A-', 'B+']
-})
+# # DataFrame 2: Student academic info
+# df2 = pd.DataFrame({
+#     'ID': [101, 102, 104],
+#     'CGPA': [3.5, 3.7, 3.9],
+#     'Grade': [["A+","A","C+"], ["F","A","B+"], ["A","C+","B"]]
+# })
 
+# df1.info();
 # concat = pd.concat([df1, df2],axis=1);
-merged_df = pd.merge(df1, df2, on='ID', how='outer')
+# merged_df = pd.merge(df1, df2, on='ID', how='outer')
 # print(concat);
-print(merged_df);
+# print(merged_df);
