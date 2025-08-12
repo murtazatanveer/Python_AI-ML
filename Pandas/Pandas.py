@@ -147,24 +147,23 @@ import matplotlib.pyplot as plt
 
 # pulse.to_csv("export.csv",index=False);
 
-
-
 # DataFrame 1: Student basic info
-# df1 = pd.DataFrame({
-#     'ID': [101, 102, 103],
-#     'Name': ['Alice', 'Bob', 'Charlie'],
-#     'Age': [20, 21, 22]
-# })
 
-# # DataFrame 2: Student academic info
-# df2 = pd.DataFrame({
-#     'ID': [101, 102, 104],
-#     'CGPA': [3.5, 3.7, 3.9],
-#     'Grade': [["A+","A","C+"], ["F","A","B+"], ["A","C+","B"]]
-# })
+df1 = pd.DataFrame({
+    'ID': [101, 102, 103],
+    'Name': ['Alice', 'Bob', 'Charlie'],
+    'Age': [20, 21, 22]
+})
 
-# df1.info();
-# concat = pd.concat([df1, df2],axis=1);
-# merged_df = pd.merge(df1, df2, on='ID', how='outer')
-# print(concat);
-# print(merged_df);
+# DataFrame 2: Student academic info
+df2 = pd.DataFrame({
+    'ID': [101, 102, 104],
+    'CGPA': [3.5, 3.7, 3.9],
+    'Grade': [["A+","A","C+"], ["F","A","B+"], ["A","C+","B"]]
+})
+
+df1.info();
+concat = pd.concat([df1, df2],axis=1);
+merged_df = pd.merge(df1, df2, on='ID', how='inner')
+print(concat,"\n\n");
+print(merged_df);
