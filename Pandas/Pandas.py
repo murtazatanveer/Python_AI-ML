@@ -163,7 +163,7 @@ df2 = pd.DataFrame({
 })
 
 df1.info();
-concat = pd.concat([df1, df2],axis=1);
-merged_df = pd.merge(df1, df2, on='ID', how='inner')
+concat = pd.concat([df1, df2],axis=0);
+merged_df = pd.merge(df1, df2, on='ID', how='inner');
 print(concat,"\n\n");
 print(merged_df);
