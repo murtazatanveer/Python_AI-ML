@@ -380,11 +380,14 @@ print("\nSeaching in 1D Array : ", np.where(nums_1d==14)[0][0]);
 isElevenPresent = np.where(nums_2d==11);
 print("\nSearching in 2D Array : ","(", isElevenPresent[0][0],",",isElevenPresent[1][0],")");
 
-# Binary Search in Numpy Arrays
+# Findind Index of New Element through Binary Search in Numpy Arrays
+
 print("\nBinary Search in Numpy Arrays\n")
 
 print("Binary Search in 1D Array : ", np.searchsorted(nums_1d, 14));
 
-y = np.array([[0,1,2],[3,4,5],[6,7,8]]).flatten();
+y = np.array([[0,2,4],[6,8,10],[12,14,16]]).flatten()
 
-print("Binary Search in 2D Array : ", np.searchsorted(y, 9));
+print("Binary Search in 2D Array : ", np.searchsorted(y, 5));
+
+
