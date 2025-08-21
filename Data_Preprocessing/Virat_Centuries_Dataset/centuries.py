@@ -6,7 +6,7 @@ from sklearn import preprocessing;
 
 # Importing the Dataset
 
-dataset = pd.read_csv("centuries.csv", index_col="No.")
+dataset = pd.read_csv("Centuries.csv", index_col="No.")
 
 # Datatype Conversion and Data Cleaning
 
@@ -68,7 +68,6 @@ x = dataset.drop(dataset.columns[6], axis=1).values;
 
 y = dataset.iloc[:,-4].values;
 
-print(x[0:5,:]);
 
 # Encoding the Independent Variable 
 
@@ -97,8 +96,6 @@ x_train , x_test , y_train , y_test = train_test_split(x, y, test_size=0.2, rand
 
 
 # Feature Scaling 
-
-
 
 scaler = preprocessing.StandardScaler(with_mean=False)
 x_train[:, -6:] = scaler.fit_transform(x_train[:, -6:]);
