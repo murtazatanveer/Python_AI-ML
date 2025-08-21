@@ -1,0 +1,81 @@
+﻿No.,Runs,Against,Position,Innings,Venue,Ground,Date,Result
+1,107, Sri Lanka,4,2,"Eden Gardens, Kolkata",Home,24-Dec-09,Won
+2,102* , Bangladesh,3,2,"Sher-e-Bangla Cricket Stadium, Dhaka",Away,11-Jan-10,Won
+3,118, Australia,3,2,"APCA-VDCA Stadium, Visakhapatnam",Home,20-Oct-10,Won
+4,105, New Zealand,3,1,"Nehru Stadium, Guwahati",Home,28-Nov-10,Won
+5,100*, Bangladesh,4,1,"Sher-e-Bangla Cricket Stadium, Dhaka",Away,19-Feb-11,Won
+6,107, England,4,1,"Sophia Gardens, Cardiff",Away,16-Sep-11,Lost (D/L)
+7,112* , England,4,2,"Feroz Shah Kotla Ground, Delhi",Home,17-Oct-11,Won
+8,117, West Indies,4,2,"APCA-VDCA Stadium, Visakhapatnam",Home,02-Dec-11,Won
+9,116, Australia,6,2,"Adelaide Oval, Adelaide",Away,24-Jan-12,Lost
+10,133* , Sri Lanka,4,2,"Bellerive Oval, Hobart",Neutral,28-Feb-12,Won
+11,108, Sri Lanka,3,1,"Sher-e-Bangla Cricket Stadium, Dhaka",Neutral,13-Mar-12,Won
+12,183, Pakistan,3,2,"Sher-e-Bangla Cricket Stadium, Dhaka",Neutral,18-Mar-12,Won
+13,106, Sri Lanka,3,1,"MRIC Stadium, Hambantota",Away,21-Jul-12,Won
+14,128*, Sri Lanka,3,2,"R. Premadasa Stadium, Colombo",Away,31-Jul-12,Won
+15,103, New Zealand,5,2,"M. Chinnaswamy Stadium, Bangalore",Home,31-Aug-12,Won
+16,103, England,5,2,"Vidarbha Cricket Association Stadium, Nagpur",Home,13-Dec-12,Drawn
+17,107, Australia,5,2,"M. A. Chidambaram Stadium, Chennai",Home,22-Feb-13,Won
+18,102, West Indies,3,1,"Queen's Park Oval, Port of Spain",Away,05-Jul-13,Won (D/L)
+19,115, Zimbabwe,3,2,"Harare Sports Club, Harare",Away,24-Jul-13,Won
+20,100*, Australia,3,2,"Sawai Mansingh Stadium, Jaipur",Home,16-Oct-13,Won
+21,115* , Australia,3,2,"VCA Stadium, Nagpur",Home,30-Oct-13,Won
+22,119, South Africa,4,1,"Wanderers Stadium, Johannesburg",Away,18-Dec-13,Drawn
+23,123, New Zealand,3,2,"McLean Park, Napier",Away,19-Jan-14,Lost
+24,105*, New Zealand,4,4,"Basin Reserve, Wellington",Away,14-Feb-14,Drawn
+25,136, Bangladesh,3,2,"Khan Shaheb Osman Ali Stadium, Fatullah",Away,26-Feb-14,Won
+26,127, West Indies,3,1,"HPCA Stadium, Dharamshala",Home,17-Oct-14,Won
+27,139* , Sri Lanka,4,2,"JSCA International Stadium, Ranchi",Home,16-Nov-14,Won
+28,115, Australia,4,2,"Adelaide Oval, Adelaide",Away,09-Dec-14,Lost
+29,141, Australia,4,4,"Adelaide Oval, Adelaide",Away,09-Dec-14,Lost
+30,169, Australia,4,2,"Melbourne Cricket Ground, Melbourne",Away,26-Dec-14,Drawn
+31,147, Australia,4,2,"Sydney Cricket Ground, Sydney",Away,06-Jan-15,Drawn
+32,107, Pakistan,3,1,"Adelaide Oval, Adelaide",Neutral,15-Feb-15,Won
+33,103, Sri Lanka,4,2,"Galle International Stadium, Galle",Away,12-Aug-15,Lost
+34,138, South Africa,3,1,"M. A. Chidambaram Stadium, Chennai",Home,22-Oct-15,Won
+35,117, Australia,3,1,"Melbourne Cricket Ground, Melbourne",Away,17-Jan-16,Lost
+36,106, Australia,3,2,"Manuka Oval, Canberra",Away,20-Jan-16,Lost
+37,200, West Indies,4,1,"Sir Vivian Richards Stadium, North Sound",Away,21-Jul-16,Won
+38,211, New Zealand,4,1,"Holkar Stadium, Indore",Home,08-Oct-16,Won
+39,154* , New Zealand,3,2,"Punjab Cricket Association IS Bindra Stadium, Mohali",Home,23-Oct-16,Won
+40,167, England,4,1,"ACA-VDCA Cricket Stadium, Visakhapatnam",Home,17-Nov-16,Won
+41,235, England,4,2,"Wankhede Stadium, Mumbai",Home,08-Dec-16,Won
+42,122, England,3,2,"Maharashtra Cricket Association Stadium, Pune",Home,15-Jan-17,Won
+43,204, Bangladesh,4,1,"Rajiv Gandhi International Cricket Stadium, Hyderabad",Home,09-Feb-17,Won
+44,111* , West Indies,3,2,"Sabina Park, Kingston",Away,06-Jul-17,Won
+45,103* , Sri Lanka,4,3,"Galle International Stadium, Galle",Away,26-Jul-17,Won
+46,131, Sri Lanka,3,1,"R. Premadasa Stadium, Colombo",Away,31-Aug-17,Won
+47,110* , Sri Lanka,3,2,"R. Premadasa Stadium, Colombo",Away,03-Sep-17,Won
+48,121, New Zealand,3,1,"Wankhede Stadium, Mumbai",Home,22-Oct-17,Lost
+49,113, New Zealand,3,1,"Green Park Stadium, Kanpur",Home,29-Oct-17,Won
+50,104* , Sri Lanka,4,3,"Eden Gardens, Kolkata",Home,16-Nov-17,Drawn
+51,213, Sri Lanka,4,2,"Vidarbha Cricket Association Stadium, Nagpur",Home,24-Nov-17,Won
+52,243, Sri Lanka,4,1,"Feroz Shah Kotla Ground, Delhi",Home,02-Dec-17,Drawn
+53,153, South Africa,4,2,"SuperSport Park, Centurion",Away,13-Jan-18,Lost
+54,112, South Africa,3,2,"Kingsmead Cricket Ground, Durban",Away,01-Feb-18,Won
+55,160* , South Africa,3,1,"Newlands Cricket Ground, Cape Town",Away,07-Feb-18,Won
+56,129* , South Africa,3,2,"SuperSport Park, Centurion",Away,16-Feb-18,Won
+57,149, England,4,2,"Edgbaston Cricket Ground, Birmingham",Away,01-Aug-18,Lost
+58,103, England,4,3,"Trent Bridge, Nottingham",Away,18-Aug-18,Won
+59,139, West Indies,4,1,"Saurashtra Cricket Association Stadium, Rajkot",Home,04-Oct-18,Won
+60,140, West Indies,3,2,"ACA Stadium, Guwahati",Home,21-Oct-18,Won
+61,157* , West Indies,3,1,"ACA-VDCA Cricket Stadium, Visakhapatnam",Home,24-Oct-18,Tied
+62,107, West Indies,3,2,"Maharashtra Cricket Association Stadium, Pune",Home,27-Oct-18,Lost
+63,123, Australia,4,2,"Perth Stadium, Perth",Away,14-Dec-18,Lost
+64,104, Australia,3,2,"Adelaide Oval, Adelaide",Away,15-Jan-19,Won
+65,116, Australia,3,1,"Vidarbha Cricket Association Stadium, Nagpur",Home,05-Mar-19,Won
+66,123, Australia,3,2,"JSCA International Stadium, Ranchi",Home,08-Mar-19,Lost
+67,120, West Indies,3,1,"Queen's Park Oval, Port of Spain",Away,11-Aug-19,Won
+68,114* , West Indies,3,2,"Queen's Park Oval, Port of Spain",Away,14-Aug-19,Won
+69,254* , South Africa,4,1,"Maharashtra Cricket Association Stadium, Pune",Home,10-Oct-19,Won
+70,136, Bangladesh,4,2,"Eden Gardens, Kolkata",Home,22-Nov-19,Won
+71,122*, Afghanistan,2,1,"Dubai International Cricket Stadium, Dubai",Neutral,08-Sep-22,Won
+72,113, Bangladesh,3,1,"Zohur Ahmed Chowdhury Stadium, Chittagong",Away,10-Dec-22,Won
+73,113, Sri Lanka,3,1,"ACA Stadium, Guwahati",Home,10-Jan-23,Won
+74,166* , Sri Lanka,3,1,"Greenfield International Stadium, Thiruvananthapuram",Home,15-Jan-23,Won
+75,186, Australia,4,2,"Narendra Modi Stadium, Ahmedabad",Home,09-Mar-23,Drawn
+76,121,West Indies,4,1,"Queen's Park Oval, Port of Spain",Away,20-Jul-23,Drawn
+77,122*,Pakistan,3,1,"R. Premadasa Stadium, Colombo",Neutral,11-Sep-23,Won
+78,103*,Bangladesh,3,2,"Maharashtra Cricket Association Stadium, Pune",Home,19-Oct-23,Won
+79,101*,South Africa,3,1,"Eden Gardens, Kolkata",,05-Nov,Won
+80,117,New Zealand,3,1,"Wankhede Stadium, Mumbai",Home,15-Nov-23,Won
