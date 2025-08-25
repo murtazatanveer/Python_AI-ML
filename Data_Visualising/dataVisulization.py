@@ -18,6 +18,10 @@ b0 = np.mean(y_actual) - b1*(np.mean(x));
 
 y_predict = b0 + b1*(x);
 
+x_test = np.array([0.5,2.5,8,9,10,11]);
+
+y_test = b0 + b1*(x_test);
+
 plt.scatter(x, y_actual, color="red", label="Actual Data Points");
 plt.plot(x, y_predict, color="green", label="Predicted Linear Line");
 

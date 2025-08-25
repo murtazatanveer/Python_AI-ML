@@ -69,7 +69,9 @@ import numpy as np;
 
 # Cleaning Data Using Pandas
 
-# pulse = pd.read_csv("pulse.csv");
+pulse = pd.read_csv("pulse.csv");
+
+print(pulse.corr(numeric_only=True));
 
 # print(pulse.iloc[0:10]);
 
@@ -83,7 +85,32 @@ import numpy as np;
 
 # print(cleaned_pulse);
 
-# print(pulse.dropna(axis=1));
+pulse.dropna(axis=0);
+
+# Removing Outliers
+
+def removing_outliers_IQR(data, cols):
+    for c in cols:
+        Q1 = data[c].quantile(0.25)
+        Q3 = data[c].quantile(0.75)
+        IQR = Q3 - Q1
+        lowerBound = Q1 - 1.5 * IQR
+        upperBound = Q3 + 1.5 * IQR
+       
+        data = data[(data[c] >= lowerBound) & (data[c] <= upperBound)]
+    
+    return data
+
+x = pulse["Pulse"].values;
+y = pulse["Calories"].values;
+
+plt.scatter(x,y, color="red");
+plt.title("Pulse VS Calories Data Visualization");
+plt.xlabel("Pulse");
+plt.ylabel("Calories");
+plt.grid(True);
+plt.show();
+
 
 # pulse.fillna("HELLO", inplace=True);
 # print(pulse);

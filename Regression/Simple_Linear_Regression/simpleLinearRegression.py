@@ -7,6 +7,8 @@ import matplotlib.pyplot as plt;
 
 dataset = pd.read_csv("Salary_Data.csv");
 
+
+
 x = dataset.iloc[:, :-1].values;
 y = dataset["Salary"].values;
 
@@ -29,10 +31,11 @@ regressor.fit(x_train,y_train);
 y_predict = regressor.predict(x_test);
 
 
-# Visualising the Training Set Results
+ # Visualising the Training Set Results
 
 plt.scatter(x_train, y_train, color="red");
 plt.plot(x_train, regressor.predict(x_train), color="green");
+plt.title("Salary VS Experience (Training Set)");
 plt.xlabel("Years Of Experience");
 plt.ylabel("Salary");
 plt.grid(True);
@@ -41,8 +44,29 @@ plt.show();
 # Visualising the Test Set Results
 
 plt.scatter(x_test, y_test, color="red");
-plt.plot(x_test, regressor.predict(x_test), color="green");
+plt.plot(x_train, regressor.predict(x_train), color="green");
+plt.title("Salary VS Experience (Test Set)");
 plt.xlabel("Years Of Experience");
 plt.ylabel("Salary");
 plt.grid(True);
 plt.show();
+
+# Parameters / Methods to Check Suitability of SLR
+
+print(dataset.corr(numeric_only=True)); 
+
+from sklearn.metrics import r2_score;
+
+print("\n",r2_score(y,regressor.predict(x))); # R² (Coefficient of Determination)
+
+from sklearn.metrics import mean_squared_error;
+
+mse = mean_squared_error(y_test,y_predict); # Mean Squared Error (MSE)
+
+# print("\n",mse); 
+
+rmse = np.sqrt(mse);
+
+print("\n",rmse); # Root Mean Squared Error (MSE)
+
+print(((rmse*100)/np.mean(y_train))); # Comparing RMSE to the Mean of Y-Train
