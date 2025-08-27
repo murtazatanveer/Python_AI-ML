@@ -8,9 +8,16 @@ import matplotlib.pyplot as plt;
 dataset = pd.read_csv("Salary_Data.csv");
 
 
-
 x = dataset.iloc[:, :-1].values;
 y = dataset["Salary"].values;
+
+# plt.scatter(x, y, color="red");
+# plt.title("Salary VS Experience (Training Set)");
+# plt.xlabel("Years Of Experience");
+# plt.ylabel("Salary");
+# plt.grid(True);
+# plt.show();
+
 
 # Splitting the Dataset into the Training Set and Test Set
 
@@ -26,12 +33,14 @@ from sklearn.linear_model import LinearRegression;
 regressor = LinearRegression();
 regressor.fit(x_train,y_train);
 
+
 # Predicting the Test Set Results
 
 y_predict = regressor.predict(x_test);
 
+y_train_predict = regressor.predict(x_train);
 
- # Visualising the Training Set Results
+#  Visualising the Training Set Results
 
 plt.scatter(x_train, y_train, color="red");
 plt.plot(x_train, regressor.predict(x_train), color="green");
@@ -61,7 +70,7 @@ print("\n",r2_score(y,regressor.predict(x))); # R² (Coefficient of Determinatio
 
 from sklearn.metrics import mean_squared_error;
 
-mse = mean_squared_error(y_test,y_predict); # Mean Squared Error (MSE)
+mse = mean_squared_error(y,regressor.predict(x)); # Mean Squared Error (MSE)
 
 # print("\n",mse); 
 
@@ -69,4 +78,4 @@ rmse = np.sqrt(mse);
 
 print("\n",rmse); # Root Mean Squared Error (MSE)
 
-print(((rmse*100)/np.mean(y_train))); # Comparing RMSE to the Mean of Y-Train
+print(((rmse*100)/np.mean(y))); # Comparing RMSE to the Mean of Y-Train

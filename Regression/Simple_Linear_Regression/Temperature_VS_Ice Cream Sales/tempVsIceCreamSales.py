@@ -2,27 +2,18 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np;
 
-pulse = pd.read_csv("pulse.csv");
+sales = pd.read_csv("Temperature_VS_IceCream.csv");
 
-pulse = pulse.iloc[:,[2,4]];
-
-print("Correlation : \n",pulse.corr(numeric_only=True));
+print("\nCorrelation : \n",sales.corr());
+print("\n\n",sales.info());
 
 # Total Missing Values In Each Column
 
-print("\n\nTotal Missing Values In Each Column\n",pulse.isnull().sum());
-
-
-# Taking Care of Missing Data
-
-from sklearn.impute import SimpleImputer;
-
-missingValue = SimpleImputer(missing_values=np.nan, strategy="mean")
-pulse[["Calories"]] = missingValue.fit_transform(pulse[["Calories"]]);
+print("\n\nTotal Missing Values In Each Column\n",sales.isnull().sum());
 
 # Removing Outliers
 
-print("\n\nBefore Removing Outliars Size of Dataset is ",len(pulse));
+print("\n\nBefore Removing Outliars Size of Dataset is ",len(sales));
 
 def removing_outliers_IQR(data, cols):
     for c in cols:
@@ -37,25 +28,24 @@ def removing_outliers_IQR(data, cols):
     return data
 
 
-pulse = removing_outliers_IQR(pulse,["Pulse","Calories"]);
+sales = removing_outliers_IQR(sales,["Temperature","Ice Cream Profits"]);
 
-print("\n\nAfter Removing Outliars Size of Dataset is ",len(pulse));
+print("\n\nAfter Removing Outliars Size of Dataset is ",len(sales));
 
 # Splitting DataSet into Independent Variables (x) and Dependent Variables (y)
 
-x = pulse.iloc[:,0].values; 
+x = sales.iloc[:,0].values; 
 
-y = pulse.iloc[:,1].values;
-
+y = sales.iloc[:,1].values;
 
 # Visualizing Cleaned Dataset
 
-plt.scatter(x,y, color="red");
-plt.title("Pulse VS Calories Data Visualization");
-plt.xlabel("Pulse");
-plt.ylabel("Calories");
-plt.grid(True);
-plt.show();
+# plt.scatter(x,y, color="red");
+# plt.title("Temperature VS  Ice-Cream Sales Visualization");
+# plt.xlabel("Temperature");
+# plt.ylabel("Sales");
+# plt.grid(True);
+# plt.show();
 
 # Splitting the Dataset into the Training Set and Test Set
 
@@ -80,9 +70,9 @@ y_predict = regressor.predict(x_test);
 
 plt.scatter(x_train, y_train, color="red");
 plt.plot(x_train, regressor.predict(x_train), color="green");
-plt.title("Pulse VS Calories (Training Set)");
-plt.xlabel("Pulse");
-plt.ylabel("Calories");
+plt.title("Temperature VS  Ice-Cream Sales (Training Set)");
+plt.xlabel("Temperature");
+plt.ylabel("Sales");
 plt.grid(True);
 plt.show();
 
@@ -90,9 +80,9 @@ plt.show();
 
 plt.scatter(x_test, y_test, color="red");
 plt.plot(x_train, regressor.predict(x_train), color="green");
-plt.title("Pulse VS Calories (Test Set)");
-plt.xlabel("Pulse");
-plt.ylabel("Calories");
+plt.title("Temperature VS  Ice-Cream Sales (Test Set)");
+plt.xlabel("Temperature");
+plt.ylabel("Sales");
 plt.grid(True);
 plt.show();
 
@@ -101,7 +91,7 @@ plt.show();
 
 from sklearn.metrics import r2_score;
 
-print("\n",r2_score(y,regressor.predict(x))); # R² (Coefficient of Determination)
+print("\nR² (Coefficient of Determination) : ",r2_score(y,regressor.predict(x))); # R² (Coefficient of Determination)
 
 from sklearn.metrics import mean_squared_error;
 
@@ -109,8 +99,8 @@ mse = mean_squared_error(y,regressor.predict(x)); # Mean Squared Error (MSE)
 
 rmse = np.sqrt(mse);
 
-print("\n",rmse); # Root Mean Squared Error (MSE)
+print("\nRoot Mean Squared Error (MSE) : ",rmse); # Root Mean Squared Error (MSE)
 
-print(((rmse*100)/np.mean(y))); # Comparing RMSE to the Mean of Y-Train
+print("\nComparing RMSE to the Mean of Y-Train in % : ",((rmse*100)/np.mean(y))); # Comparing RMSE to the Mean of Y-Train
 
-print("Result : This Dataset is Not Suitable for Simple Linear Regression")
+print("Result : This Dataset and Modal is Fit for Simple Linear Regression")
