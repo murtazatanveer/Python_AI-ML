@@ -97,19 +97,27 @@ plt.grid(True);
 plt.show();
 
 
-# Parameters / Methods to Check Suitability of SLR
-
-print("\nCorrelation : \n",pulse.corr(),"\n");
+# Parameters / Methods to Check Suitability of MLR
 
 x_predict = regressor.predict(x);
+
+x_train_predict = regressor.predict(x_train);
 
 x_test_predict = regressor.predict(x_test);
 
 from sklearn.metrics import r2_score;
 
-print("\nR² (Coefficient of Determination) : ",r2_score(y,x_predict)); # R² (Coefficient of Determination)
+r2 = r2_score(y,x_predict);
 
-print("\nR² (Coefficient of Determination)  : ",r2_score(y_test,x_test_predict)); # R² (Coefficient of Determination)
+r2_train = r2_score(y_train,x_train_predict);
+
+r2_test = r2_score(y_test,x_test_predict);
+
+print("\nR² (Coefficient of Determination) X and Y : ",r2); # R² (Coefficient of Determination)
+
+print("\nR² (Coefficient of Determination) X_Train and Y_Train : ",r2_train); # R² (Coefficient of Determination)
+
+print("\nR² (Coefficient of Determination) X_Test and Y_Test : ",r2_test); # R² (Coefficient of Determination)
 
 
 from sklearn.metrics import mean_squared_error;
@@ -122,18 +130,43 @@ mse_x_test = mean_squared_error(y_test,x_test_predict);
 
 rmse_x_test = np.sqrt(mse_x_test);
 
+mse_x_train = mean_squared_error(y_train,x_train_predict);
+
+rmse_x_train = np.sqrt(mse_x_train);
+
+
 print("\nRoot Mean Squared Error (MSE) X and Y : ",rmse_x); # Root Mean Squared Error (MSE)
 
-print("\nRoot Mean Squared Error (MSE)  X_Test and Y_Test : ",np.sqrt(mean_squared_error(y_test,x_test_predict))); # Root Mean Squared Error (MSE)
+print("\nRoot Mean Squared Error (MSE)  X_Train and Y_Train : ",rmse_x_train); # Root Mean Squared Error (MSE)
+
+print("\nRoot Mean Squared Error (MSE)  X_Test and Y_Test : ",rmse_x_test); # Root Mean Squared Error (MSE)
+
 
 print("\nComparing RMSE to the Mean of Y in % : ",((rmse_x*100)/np.mean(y))); # Comparing RMSE to the Mean
+
+print("\nComparing RMSE to the Mean of Y_Train in % : ",((rmse_x_train*100)/np.mean(y_train))); # Comparing RMSE to the Mean
 
 print("\nComparing RMSE to the Mean of Y_Test in % : ",((rmse_x_test*100)/np.mean(y_test))); # Comparing RMSE to the Mean
 
 
 print("\nMean Absolute Error X and Y: ",np.mean(np.mean(np.abs(x_predict-y))));
 
+print("\nMean Absolute Error X_Train and Y_Train : ",np.mean(np.mean(np.abs(x_train_predict-y_train))));
+
 print("\nMean Absolute Error X_Test and Y_Test: ",np.mean(np.mean(np.abs(x_test_predict-y_test))));
 
 
-print("Result : This Dataset and Modal is Fit for Simple Linear Regression")
+# Homoscedasticity Check
+
+residuals = y - regressor.predict(x);
+
+plt.scatter(regressor.predict(x), residuals)
+plt.axhline(y=0, color='red', linestyle='--')
+plt.title("Homoscedasticity Check")
+plt.xlabel("Predicted Values")
+plt.ylabel("Residuals")
+plt.grid(True);
+plt.show()
+
+
+print("\nResult : This Dataset and Modal is not Fit for Simple Linear Regression")

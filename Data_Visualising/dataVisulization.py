@@ -3,12 +3,12 @@ import numpy as np;
 
 x = np.array([1,2,3,4,5,6]);
 y_actual = np.array([50,60,80,90,95,98]);
-# y = np.array([88,76,81,85,79,89]);
+y = np.array([88,76,81,85,79,89]);
 
-# # Basic Line Plotting
+# Basic Line Plotting
 
-# # plt.plot(x, y, color="orange");
-# # plt.title("Basic Line Plotting");
+# plt.plot(x, y, color="orange");
+# plt.title("Basic Line Plotting");
 
 # Drawing a Line of Best Fit (like Regression)
 
@@ -22,11 +22,19 @@ x_test = np.array([0.5,2.5,8,9,10,11]);
 
 y_test = b0 + b1*(x_test);
 
-plt.scatter(x, y_actual, color="red", label="Actual Data Points");
-plt.plot(x, y_predict, color="green", label="Predicted Linear Line");
+# plt.scatter(x, y_actual, color="red", label="Actual Data Points");
+# plt.plot(x, y_predict, color="green", label="Predicted Linear Line");
 
+# Drawing a Curve
+
+a = np.array([1,2,4,5,8,10,11,13,15,18,20]);
+b = a*2;
+
+plt.plot(a, b, color="green", label="Curve Line");
 plt.xlabel("X-Axis");
 plt.ylabel("Y-Axis");
 plt.grid(True);
 plt.show();
+
+
 
