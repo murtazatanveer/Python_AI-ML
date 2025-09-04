@@ -28,7 +28,7 @@ y_test = b0 + b1*(x_test);
 # Drawing a Curve
 
 a = np.array([1,2,4,5,8,10,11,13,15,18,20]);
-b = a*2;
+b = 2 + 4*(a) + 2*(a**2);
 
 plt.plot(a, b, color="green", label="Curve Line");
 plt.xlabel("X-Axis");

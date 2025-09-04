@@ -47,37 +47,50 @@ def datasetVisualization(cols,y_axis,data):
 
 # datasetVisualization(["R&D Spend","Administration","Marketing Spend"],"Profit",dataset);
 
+# Finding P-Value of the dataset
+
+x_p = dataset.drop("Profit", axis=1)
+y_p = dataset["Profit"]
+x_p = pd.get_dummies(x_p, drop_first=True)
+x_p = x_p.astype(float)
+x_p = sm.add_constant(x_p)
+model = sm.OLS(y_p, x_p).fit()
+pvalues_df = pd.DataFrame({
+    "Feature": x_p.columns,
+    "P-Value": np.round(model.pvalues, 4)
+})
+
+print(model.summary())
+print("\nP-values:\n", pvalues_df)
+
 # Ways to Check Multicollinearity Before Modal Training
 
-print(dataset.corr(numeric_only=True));
+print("\n",dataset.corr(numeric_only=True));
 
-
-X = dataset[["R&D Spend", "Administration", "Marketing Spend"]]
 
 from statsmodels.stats.outliers_influence import variance_inflation_factor
-import statsmodels.api as sm
 
-X = sm.add_constant(X);
+# ---- VIF ----
+
 vif_data = pd.DataFrame()
-vif_data["Feature"] = X.columns
-vif_data["VIF"] = [variance_inflation_factor(X.values, i) for i in range(X.shape[1])]
-print("\n\nVariance Inflation Factor (VIF)\n",vif_data)
+vif_data["Feature"] = x_p.columns
+vif_data["VIF"] = [variance_inflation_factor(x_p.values, i) for i in range(x_p.shape[1])]
+print("\nVariance Inflation Factor (VIF):\n", vif_data)
 
-
+# ---- Tolerance ----
 tolerance_data = []
-for feature, vif in zip(X.columns, vif_data["VIF"]):
+for feature, vif in zip(x_p.columns, vif_data["VIF"]):
     tolerance_data.append((feature, 1/vif))
 
-print("\n\nTolerance values:")
+print("\nTolerance values:")
 for feature, tol in tolerance_data:
     print(f"{feature}: {tol}")
 
+# ---- Condition Number ----
+correlationMatrix = dataset.iloc[:,:-1].corr(numeric_only=True).values
+cond_number = np.linalg.cond(correlationMatrix)
+print("\nCondition Number:", cond_number)
 
-correlationMatrix = dataset.iloc[:,:-1];
-correlationMatrix = correlationMatrix.corr(numeric_only=True).values;
-
-cond_number = np.linalg.cond(correlationMatrix);
-print("\nCondition Number:", cond_number);
 
 # Splitting DataSet into Independent Variables (x) and Dependent Variables (y)
 
@@ -97,7 +110,7 @@ ct = ColumnTransformer(
     remainder="passthrough"
 );
 
-x = np.array(ct.fit_transform(x));
+x = np.array(ct.fit_transform(x)).astype(float)
 
 
 # Splitting the Dataset into the Training Set and Test Set
@@ -113,7 +126,6 @@ from sklearn.linear_model import LinearRegression;
 regressor = LinearRegression();
 regressor.fit(x_train,y_train);
 
-
 # Predicting the Test Set Results
 
 np.set_printoptions(precision=2);
@@ -123,12 +135,6 @@ y_predict = regressor.predict(x_test);
 test_output = np.concatenate((y_predict.reshape(len(y_predict),1), y_test.reshape(len(y_test),1)), axis=1);
 
 print("\n\n",test_output);
-
-# Finding P-Value of the dataset
-
-model = sm.OLS(y, X).fit()
-# print("\n\n",model.summary())
-print("\nP-values:\n", model.pvalues.apply(lambda x: round(x, 2))) # each variable’s p-value shows the significance of the relationship between that variable and Y
 
 
 # Parameters / Methods to Check Suitability of MLR
