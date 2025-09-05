@@ -1,43 +1,23 @@
-# Importing the libraries
+# Importing the Libraries
 
 import numpy as np;
 import pandas as pd;
 import matplotlib.pyplot as plt;
-import statsmodels.api as sm
+import statsmodels.api as sm;
+
 
 # Importing the Dataset
 
-dataset = pd.read_csv("carPrice_Prediction_2.csv");
+dataset = pd.read_csv("House Price Prediction 2.csv");
 
 # Data Cleaning 
 
+dataset.drop(dataset.columns[[0,7,8,-1,-2,-4,-5]], axis=1, inplace=True);
+
 dataset = dataset.apply(lambda col: col.str.strip() if col.dtype == "object" else col) # Remove leading/trailing spaces in all string columns
 
+
 # print(dataset.info());
-dataset.drop(dataset.columns[[0, 2]], axis=1, inplace=True);
-
-numerical_cols = [
-    "symboling", 
-    "wheelbase",
-    "carlength",
-    "carwidth",
-    "carheight",
-    "curbweight",
-    "enginesize",
-    "boreratio",
-    "stroke",
-    "compressionratio",
-    "horsepower",
-    "peakrpm",
-    "citympg",
-    "highwaympg",
-]
-
-# Handling Duplicates
-
-dataset.drop_duplicates(inplace=True);
-
-# Removing Outliers
 
 def removing_outliers_IQR(data, cols):
     for c in cols:
@@ -47,31 +27,28 @@ def removing_outliers_IQR(data, cols):
         lowerBound = Q1 - 1.5 * IQR
         upperBound = Q3 + 1.5 * IQR
        
-        data.loc[data[c] < lowerBound, c] = int(lowerBound)
-        data.loc[data[c] > upperBound, c] = int(upperBound)
+        data = data[(data[c] >= lowerBound) & (data[c] <= upperBound)]
     
     return data
 
-dataset = removing_outliers_IQR(dataset,numerical_cols);
+# print(len(dataset))
+dataset = removing_outliers_IQR(dataset,['price', 'bedrooms', 'bathrooms', 'sqft_living' ,'sqft_lot','floors','condition','sqft_above','sqft_basement']);
+# print(len(dataset))
 
+# Visualization Of Dataset
 
+def datasetVisualization(cols,y_axis,data):
+        for c in cols:
+            plt.scatter(data[c],data[y_axis]);
+            plt.title("Data Visualization");
+            plt.xlabel(c);
+            plt.ylabel(y_axis);
+            plt.grid(True);
+            plt.show();
 
-
-# # Visualization Of Dataset
-
-# def datasetVisualization(cols,y_axis,data):
-#         for c in cols:
-#             plt.scatter(data[c],data[y_axis]);
-#             plt.title("Data Visualization");
-#             plt.xlabel(c);
-#             plt.ylabel(y_axis);
-#             plt.grid(True);
-#             plt.show();
-
-# # datasetVisualization(numerical_cols,"price",dataset);
+# datasetVisualization(['bedrooms', 'bathrooms', 'sqft_living' ,'sqft_lot','floors','condition','sqft_above','sqft_basement'],"price",dataset);
 
 # Building a Modal (Bidirectional Elimination)
-
 
 def bidirectional_selection(X, y, significance_level=0.05):
     initial_features = []
@@ -121,17 +98,13 @@ def bidirectional_selection(X, y, significance_level=0.05):
 x_p = dataset.drop("price", axis=1)
 x_p = pd.get_dummies(x_p, drop_first=True, dtype=int)
 y_p = dataset["price"]
-
 selected_features = bidirectional_selection(x_p, y_p, 0.05)
-
 x_p = x_p[selected_features];
-
 
 # Ways to Check Multicollinearity Before Modal Training
 
-# print("\n",dataset.corr(numeric_only=True));
+x_p = x_p.drop(["sqft_above","yr_built","sqft_living","bathrooms","bedrooms"], axis=1);
 
-x_p = x_p.drop(["cylindernumber_two","stroke","peakrpm","curbweight","cylindernumber_four"], axis=1);
 
 from statsmodels.stats.outliers_influence import variance_inflation_factor
 
@@ -159,7 +132,8 @@ print("\nCondition Number:", cond_number)
 # Splitting DataSet into Independent Variables (x) and Dependent Variables (y)
 
 x = x_p.values;
-y = np.log(dataset.iloc[:,-1].values);
+y = dataset.iloc[:,0].values;
+
 
 # Splitting the Dataset into the Training Set and Test Set
 
@@ -184,6 +158,8 @@ y_predict = regressor.predict(x_test);
 test_output = np.concatenate((y_predict.reshape(len(y_predict),1), y_test.reshape(len(y_test),1)), axis=1);
 
 print("\n\n",test_output);
+
+print(y_test[0],y_predict[0]);
 
 # Parameters / Methods to Check Suitability of MLR
 

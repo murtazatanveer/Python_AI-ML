@@ -1,43 +1,22 @@
-# Importing the libraries
+# Importing the Libraries
 
 import numpy as np;
 import pandas as pd;
 import matplotlib.pyplot as plt;
-import statsmodels.api as sm
+import statsmodels.api as sm;
+
 
 # Importing the Dataset
 
-dataset = pd.read_csv("carPrice_Prediction_2.csv");
+dataset = pd.read_csv("House Price Prediction Dataset.csv");
 
 # Data Cleaning 
+
+dataset.drop(dataset.columns[[0]], axis=1, inplace=True);
 
 dataset = dataset.apply(lambda col: col.str.strip() if col.dtype == "object" else col) # Remove leading/trailing spaces in all string columns
 
 # print(dataset.info());
-dataset.drop(dataset.columns[[0, 2]], axis=1, inplace=True);
-
-numerical_cols = [
-    "symboling", 
-    "wheelbase",
-    "carlength",
-    "carwidth",
-    "carheight",
-    "curbweight",
-    "enginesize",
-    "boreratio",
-    "stroke",
-    "compressionratio",
-    "horsepower",
-    "peakrpm",
-    "citympg",
-    "highwaympg",
-]
-
-# Handling Duplicates
-
-dataset.drop_duplicates(inplace=True);
-
-# Removing Outliers
 
 def removing_outliers_IQR(data, cols):
     for c in cols:
@@ -52,86 +31,33 @@ def removing_outliers_IQR(data, cols):
     
     return data
 
-dataset = removing_outliers_IQR(dataset,numerical_cols);
+# print(len(dataset))
+# dataset = removing_outliers_IQR(dataset,['Area', 'Bedrooms', 'Bathrooms', 'Floors' ,'YearBuilt','Price']);
+# print(len(dataset))
 
+# Visualization Of Dataset
 
+def datasetVisualization(cols,y_axis,data):
+        for c in cols:
+            plt.scatter(data[c],data[y_axis]);
+            plt.title("Data Visualization");
+            plt.xlabel(c);
+            plt.ylabel(y_axis);
+            plt.grid(True);
+            plt.show();
 
-
-# # Visualization Of Dataset
-
-# def datasetVisualization(cols,y_axis,data):
-#         for c in cols:
-#             plt.scatter(data[c],data[y_axis]);
-#             plt.title("Data Visualization");
-#             plt.xlabel(c);
-#             plt.ylabel(y_axis);
-#             plt.grid(True);
-#             plt.show();
-
-# # datasetVisualization(numerical_cols,"price",dataset);
-
-# Building a Modal (Bidirectional Elimination)
-
-
-def bidirectional_selection(X, y, significance_level=0.05):
-    initial_features = []
-    best_features = list(initial_features)
-
-    # Convert all to numeric and drop NaNs
-    X = X.apply(pd.to_numeric, errors='coerce')
-    y = pd.to_numeric(y, errors='coerce')
-    mask = X.notnull().all(axis=1) & y.notnull()
-    X = X.loc[mask]
-    y = y.loc[mask]
-
-    while True:
-        changed = False
-
-        # ---------- Forward Step ----------
-        excluded = list(set(X.columns) - set(best_features))
-        new_pval = pd.Series(index=excluded, dtype=float)
-
-        for new_column in excluded:
-            X_model = sm.add_constant(X[best_features + [new_column]].astype(float))
-            model = sm.OLS(y, X_model).fit()
-            new_pval[new_column] = model.pvalues.get(new_column, 1.0)
-
-        if not new_pval.empty:
-            min_pval = new_pval.min()
-            if min_pval < significance_level:
-                best_features.append(new_pval.idxmin())
-                changed = True
-
-        # ---------- Backward Step ----------
-        if best_features:
-            X_model = sm.add_constant(X[best_features].astype(float))
-            model = sm.OLS(y, X_model).fit()
-            pvalues = model.pvalues.iloc[1:]  # exclude intercept
-            max_pval = pvalues.max()
-            if max_pval > significance_level:
-                worst_feature = pvalues.idxmax()
-                best_features.remove(worst_feature)
-                changed = True
-
-        if not changed:
-            break
-
-    return best_features
-
-x_p = dataset.drop("price", axis=1)
-x_p = pd.get_dummies(x_p, drop_first=True, dtype=int)
-y_p = dataset["price"]
-
-selected_features = bidirectional_selection(x_p, y_p, 0.05)
-
-x_p = x_p[selected_features];
+# datasetVisualization(['Area', 'Bedrooms', 'Bathrooms', 'Floors' ,'YearBuilt'],"Price",dataset);
 
 
 # Ways to Check Multicollinearity Before Modal Training
 
-# print("\n",dataset.corr(numeric_only=True));
+x_p = dataset.drop("Price", axis=1)
+x_p = pd.get_dummies(x_p, drop_first=True, dtype=int)
+y_p = dataset["Price"]
 
-x_p = x_p.drop(["cylindernumber_two","stroke","peakrpm","curbweight","cylindernumber_four"], axis=1);
+x_p = x_p.drop(["YearBuilt"], axis=1);
+
+print(dataset.corr(numeric_only=True),"\n");
 
 from statsmodels.stats.outliers_influence import variance_inflation_factor
 
@@ -156,10 +82,12 @@ correlationMatrix = x_p.corr().values
 cond_number = np.linalg.cond(correlationMatrix)
 print("\nCondition Number:", cond_number)
 
+
 # Splitting DataSet into Independent Variables (x) and Dependent Variables (y)
 
 x = x_p.values;
-y = np.log(dataset.iloc[:,-1].values);
+y = dataset.iloc[:,-1].values;
+
 
 # Splitting the Dataset into the Training Set and Test Set
 
@@ -263,4 +191,4 @@ plt.ylabel("Residuals")
 plt.grid(True);
 plt.show()
 
-print("\nResult : This Dataset and Modal is Moderate for Multiple Linear Regression");
+print("\nResult : This Dataset and Modal is Not Fit for Multiple Linear Regression\n Underfitted Modal and High Bias");
