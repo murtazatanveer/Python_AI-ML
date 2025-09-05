@@ -86,6 +86,8 @@ plt.ylabel("Calories");
 plt.grid(True);
 plt.show();
 
+print(x_train);
+
 # Visualising the Test Set Results
 
 plt.scatter(x_test, y_test, color="red");
