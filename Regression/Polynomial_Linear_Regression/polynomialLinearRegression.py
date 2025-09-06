@@ -103,6 +103,14 @@ plt.ylabel('Salary')
 plt.grid(True);
 plt.show()
 
+# Predicting a new Result with Linear Regression
+
+print(lin_reg.predict([[11]]))
+
+# Predicting a new Result with Polynomial Regression
+
+print(lin_reg_2.predict(poly_reg.fit_transform([[11]])))
+
 # Parameters / Methods to Check Suitability of MLR
 
 
