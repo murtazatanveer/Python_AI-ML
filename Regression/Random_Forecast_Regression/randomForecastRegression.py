@@ -1,21 +1,32 @@
+
 # Importing the Libraries
 
+import pandas as pd
+import matplotlib.pyplot as plt
 import numpy as np;
-import pandas as pd;
-import matplotlib.pyplot as plt;
-
 
 # Importing the Dataset
 
-dataset = pd.read_csv("House Price Prediction Dataset.csv");
+pulse = pd.read_csv("pulse.csv");
+pulse = pulse.iloc[:,[2,4]];
 
-# Data Cleaning 
+print("Correlation : \n",pulse.corr(numeric_only=True));
 
-dataset.drop(dataset.columns[[0]], axis=1, inplace=True);
+# Total Missing Values In Each Column
 
-dataset = dataset.apply(lambda col: col.str.strip() if col.dtype == "object" else col) # Remove leading/trailing spaces in all string columns
+print("\n\nTotal Missing Values In Each Column\n",pulse.isnull().sum());
 
-# print(dataset.info());
+
+# Taking Care of Missing Data
+
+from sklearn.impute import SimpleImputer;
+
+missingValue = SimpleImputer(missing_values=np.nan, strategy="mean")
+pulse[["Calories"]] = missingValue.fit_transform(pulse[["Calories"]]);
+
+# Removing Outliers
+
+print("\n\nBefore Removing Outliars Size of Dataset is ",len(pulse));
 
 def removing_outliers_IQR(data, cols):
     for c in cols:
@@ -25,45 +36,29 @@ def removing_outliers_IQR(data, cols):
         lowerBound = Q1 - 1.5 * IQR
         upperBound = Q3 + 1.5 * IQR
        
-        data.loc[data[c] < lowerBound, c] = int(lowerBound)
-        data.loc[data[c] > upperBound, c] = int(upperBound)
+        data = data[(data[c] >= lowerBound) & (data[c] <= upperBound)]
     
     return data
 
-dataset = removing_outliers_IQR(dataset,['Area', 'Bedrooms', 'Bathrooms', 'Floors' ,'YearBuilt','Price']);
 
-# Visualization Of Dataset
+pulse = removing_outliers_IQR(pulse,["Pulse","Calories"]);
 
-def datasetVisualization(cols,y_axis,data):
-        for c in cols:
-            plt.scatter(data[c],data[y_axis]);
-            plt.title("Data Visualization");
-            plt.xlabel(c);
-            plt.ylabel(y_axis);
-            plt.grid(True);
-            plt.show();
-
-# datasetVisualization(['Area', 'Bedrooms', 'Bathrooms', 'Floors' ,'YearBuilt'],"Price",dataset);
+print("After Removing Outliars Size of Dataset is ",len(pulse));
 
 # Splitting DataSet into Independent Variables (x) and Dependent Variables (y)
 
-x = dataset.iloc[:,:-1];
-y = dataset.iloc[:,-1];
+x = pulse.iloc[:,0].values; 
+y = pulse.iloc[:,1].values;
+x = x.reshape(-1, 1);
 
-# Encoding the Independent Variable
+# Visualizing Cleaned Dataset
 
-from sklearn.compose import ColumnTransformer;
-from sklearn.preprocessing import OneHotEncoder;
-
-ct = ColumnTransformer(
-
-    transformers=[
-        ("House Price Dataset Encoding", OneHotEncoder(), [5,6,7])
-    ],
-    remainder="passthrough"
-);
-
-x = np.array(ct.fit_transform(x));
+plt.scatter(x,y, color="red");
+plt.title("Pulse VS Calories Data Visualization");
+plt.xlabel("Pulse");
+plt.ylabel("Calories");
+plt.grid(True);
+plt.show();
 
 # Splitting the Dataset into the Training Set and Test Set
 
@@ -71,24 +66,25 @@ from sklearn.model_selection import train_test_split;
 
 x_train , x_test , y_train , y_test = train_test_split(x, y, test_size=0.2, random_state=0);
 
-# Training the Decision Tree Regression model on the Training set
+# Training the Random Forest Regression model on the Training dataset
 
-from sklearn.tree import DecisionTreeRegressor;
-
-regressor = DecisionTreeRegressor(random_state=0,max_depth=20);
+from sklearn.ensemble import RandomForestRegressor;
+regressor = RandomForestRegressor(n_estimators=200,   
+random_state=42);
 regressor.fit(x_train,y_train);
 
-# Predicting the Test Set Results
+# Visualising the Random Forest Regression Training Set results  (higher resolution)
 
-np.set_printoptions(precision=2);
+X_grid = np.arange(np.min(x), np.max(x), 0.05);
+X_grid = X_grid.reshape((len(X_grid), 1));
+plt.scatter(x, y, color = 'red');
+plt.plot(X_grid, regressor.predict(X_grid), color = 'blue');
+plt.title('Pulse Vs Calories (Decision Tree Regression)');
+plt.xlabel('Pulse');
+plt.ylabel('Calories');
+plt.show();
 
-y_predict = regressor.predict(x_test);
-
-test_output = np.concatenate((y_predict.reshape(-1,1), y_test.to_numpy().reshape(-1, 1)), axis=1);
-
-# print("\n\n",test_output);
-
-# Parameters / Methods to Check Suitability of Decision Tree Regression
+# Parameters / Methods to Check Suitability of RFR
 
 x_predict = regressor.predict(x);
 
@@ -152,4 +148,3 @@ print("\nMean Absolute Error X and Y: ",np.mean(np.mean(np.abs(x_predict-y))));
 print("\nMean Absolute Error X_Train and Y_Train : ",np.mean(np.mean(np.abs(x_train_predict-y_train))));
 
 print("\nMean Absolute Error X_Test and Y_Test: ",np.mean(np.mean(np.abs(x_test_predict-y_test))));
-

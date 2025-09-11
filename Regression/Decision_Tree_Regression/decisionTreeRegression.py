@@ -6,9 +6,7 @@ import numpy as np;
 
 # Importing the Dataset
 
-
 pulse = pd.read_csv("pulse.csv");
-
 pulse = pulse.iloc[:,[2,4]];
 
 print("Correlation : \n",pulse.corr(numeric_only=True));
@@ -79,11 +77,11 @@ print("\nPredicting Result : ",regressor.predict([[105.5]]));
 
 X_grid = np.arange(np.min(x), np.max(x), 0.05);
 X_grid = X_grid.reshape((len(X_grid), 1));
-plt.scatter(x, y, color = 'red')
-plt.plot(X_grid, regressor.predict(X_grid), color = 'blue')
-plt.title('Truth or Bluff (Decision Tree Regression)')
-plt.xlabel('Position level')
-plt.ylabel('Salary')
+plt.scatter(x, y, color = 'red');
+plt.plot(X_grid, regressor.predict(X_grid), color = 'blue');
+plt.title('Pulse Vs Calories (Decision Tree Regression)');
+plt.xlabel('Pulse');
+plt.ylabel('Calories');
 plt.show()
 
 # Parameters / Methods to Check Suitability of MLR
