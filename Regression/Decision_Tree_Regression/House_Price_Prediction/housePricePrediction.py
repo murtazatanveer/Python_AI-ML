@@ -7,15 +7,18 @@ import matplotlib.pyplot as plt;
 
 # Importing the Dataset
 
-dataset = pd.read_csv("House Price Prediction Dataset.csv");
+dataset = pd.read_csv("house_prices_dataset.csv");
 
 # Data Cleaning 
-
-dataset.drop(dataset.columns[[0]], axis=1, inplace=True);
 
 dataset = dataset.apply(lambda col: col.str.strip() if col.dtype == "object" else col) # Remove leading/trailing spaces in all string columns
 
 # print(dataset.info());
+# print(dataset.isnull().sum());
+
+# Removing Outliers
+
+# print("\n\nBefore Removing Outliars Size of Dataset is ",len(dataset));
 
 def removing_outliers_IQR(data, cols):
     for c in cols:
@@ -30,7 +33,10 @@ def removing_outliers_IQR(data, cols):
     
     return data
 
-dataset = removing_outliers_IQR(dataset,['Area', 'Bedrooms', 'Bathrooms', 'Floors' ,'YearBuilt','Price']);
+# dataset = removing_outliers_IQR(dataset,['square_feet','num_rooms','age','distance_to_city(km)','price']);
+
+# print("\n\nAfter Removing Outliars Size of Dataset is ",len(dataset));
+
 
 # Visualization Of Dataset
 
@@ -43,27 +49,12 @@ def datasetVisualization(cols,y_axis,data):
             plt.grid(True);
             plt.show();
 
-# datasetVisualization(['Area', 'Bedrooms', 'Bathrooms', 'Floors' ,'YearBuilt'],"Price",dataset);
+# datasetVisualization(['square_feet','num_rooms','age','distance_to_city(km)'],'price',dataset);
 
 # Splitting DataSet into Independent Variables (x) and Dependent Variables (y)
 
 x = dataset.iloc[:,:-1];
 y = dataset.iloc[:,-1];
-
-# Encoding the Independent Variable
-
-from sklearn.compose import ColumnTransformer;
-from sklearn.preprocessing import OneHotEncoder;
-
-ct = ColumnTransformer(
-
-    transformers=[
-        ("House Price Dataset Encoding", OneHotEncoder(), [5,6,7])
-    ],
-    remainder="passthrough"
-);
-
-x = np.array(ct.fit_transform(x));
 
 # Splitting the Dataset into the Training Set and Test Set
 
@@ -71,22 +62,25 @@ from sklearn.model_selection import train_test_split;
 
 x_train , x_test , y_train , y_test = train_test_split(x, y, test_size=0.2, random_state=0);
 
-# Training the Decision Tree Regression model on the Training set
+
+# Training the Decision Tree Regression model on the Training dataset
 
 from sklearn.tree import DecisionTreeRegressor;
 
-regressor = DecisionTreeRegressor(random_state=0,max_depth=20);
+regressor = DecisionTreeRegressor(random_state=0);
 regressor.fit(x_train,y_train);
 
-# Predicting the Test Set Results
 
-np.set_printoptions(precision=2);
+# # Predicting the Test Set Results
 
-y_predict = regressor.predict(x_test);
+# np.set_printoptions(precision=2);
 
-test_output = np.concatenate((y_predict.reshape(-1,1), y_test.to_numpy().reshape(-1, 1)), axis=1);
+# y_predict = regressor.predict(x_test);
 
-# print("\n\n",test_output);
+# test_output = np.concatenate((y_predict.reshape(-1,1), y_test.to_numpy().reshape(-1, 1)), axis=1);
+
+# # print("\n\n",test_output);
+
 
 # Parameters / Methods to Check Suitability of Decision Tree Regression
 
