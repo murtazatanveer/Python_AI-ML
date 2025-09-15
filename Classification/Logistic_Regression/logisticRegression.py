@@ -80,9 +80,9 @@ y_train_predict = classifier.predict(x_train)
 y_predict = classifier.predict(x)
 y_test_predict = classifier.predict(x_test);
 
-y_prob = classifier.predict(x)[:, 1];
-y_test_prob = classifier.predict(x_test)[:, 1];
-y_train_prob = classifier.predict(x_train)[:, 1];
+y_prob = classifier.predict_proba(x)[:, 1];
+y_test_prob = classifier.predict_proba(x_test)[:, 1];
+y_train_prob = classifier.predict_proba(x_train)[:, 1];
 
 # 1. Confusion Matrix
 
@@ -116,12 +116,12 @@ print("F1 Score (Test Set) : ", f1_score(y_test, y_test_predict));
 
 # 4. ROC-AUC
 
-print("ROC-AUC (Whole Set) :", roc_auc_score(y, y_prob));
+print("\nROC-AUC (Whole Set) :", roc_auc_score(y, y_prob));
 print("ROC-AUC (Training Set) :", roc_auc_score(y_train, y_train_prob));
 print("ROC-AUC (Test Set) :", roc_auc_score(y_test, y_test_prob));
 
 # 5. Log Loss
 
-print("Log Loss (Whole Set) :", log_loss(y, y_prob));
+print("\nLog Loss (Whole Set) :", log_loss(y, y_prob));
 print("Log Loss (Training Set) :", log_loss(y_train, y_train_prob));
 print("Log Loss (Test Set) :", log_loss(y_test, y_test_prob));
