@@ -108,5 +108,5 @@ print("\nRoot Mean Squared Error (MSE) X and Y : ",rmse_x); # Root Mean Squared 
 
 print("\nComparing RMSE to the Mean of Y in % : ",((rmse_x*100)/np.mean(y))); # Comparing RMSE to the Mean
 
-print("\nMean Absolute Error X and Y: ",np.mean(np.mean(np.abs(x_predict-y))));
+print("\nMean Absolute Error X and Y: ",np.mean(np.abs(x_predict-y)));
 

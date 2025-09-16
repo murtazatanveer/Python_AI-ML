@@ -76,8 +76,9 @@ x_train , x_test , y_train , y_test = train_test_split(x, y, test_size=0.2, rand
 from sklearn.preprocessing import StandardScaler;
 
 sc = StandardScaler();
-sc.fit_transform(x_train);
-sc.transform(x_test)
+x_train = sc.fit_transform(x_train) 
+x_test = sc.transform(x_test)
+x = sc.transform(x); 
 
 # Training the Logistic Regression model on the Training set
 

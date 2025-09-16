@@ -1,19 +1,23 @@
 # Importing the Libraries
+
 import pandas as pd;
 import numpy as np;
 import matplotlib.pyplot as plt;
 
 # Importing the Dataset
 
-dataset = pd.read_csv("Social_Network_Ads.csv");
+dataset = pd.read_csv("CollegePlacement.csv");
 
-# Data Cleaning 
+# Data Cleaning
+
+dataset.drop(columns=['College_ID', 'Prev_Sem_Result'], inplace=True);
 
 # print(dataset.info());
 
 # print(dataset.isnull().sum());
 
-print(dataset.corr(numeric_only=True));
+# print(dataset.corr(numeric_only=True));
+
 
 # Removing Outliars
 
@@ -30,13 +34,36 @@ def removing_outliers_IQR(data, cols):
     return data
 
 print(len(dataset))
-dataset = removing_outliers_IQR(dataset,['Age','EstimatedSalary']);
-print(len(dataset))
+dataset = removing_outliers_IQR(dataset,['IQ','CGPA','Academic_Performance','Extra_Curricular_Score','Communication_Skills','Projects_Completed']);
+print(len(dataset)) 
 
 # Splitting DataSet into Independent Variables (x) and Dependent Variables (y)
 
 x = dataset.iloc[:,:-1].values;
 y = dataset.iloc[:,-1].values;
+
+# Encoding the Independent Variable
+
+from sklearn.compose import ColumnTransformer;
+from sklearn.preprocessing import OneHotEncoder;
+
+ct = ColumnTransformer(
+
+    transformers=[
+        ("Country Encoding", OneHotEncoder(), [3])
+    ],
+    remainder="passthrough"
+);
+
+x = np.array(ct.fit_transform(x));
+
+
+# Encoding the Dependent Variable
+
+from sklearn.preprocessing import LabelEncoder;
+
+le = LabelEncoder();
+y=le.fit_transform(y);
 
 # Splitting the Dataset into the Training Set and Test Set
 
@@ -53,22 +80,12 @@ x_train = sc.fit_transform(x_train)
 x_test = sc.transform(x_test)
 x = sc.transform(x); 
 
-# Training the Logistic Regression model on the Training set
+# Training the KNN model on the Training set
 
-from sklearn.linear_model import LogisticRegression;
+from sklearn.neighbors import KNeighborsClassifier;
 
-classifier = LogisticRegression(random_state=0);
+classifier = KNeighborsClassifier(n_neighbors=5 , metric="minkowski" , p=2);
 classifier.fit(x_train,y_train);
-
-# Predicting a new result
-
-print(classifier.predict(sc.transform([[30,87000]])));
-
-# Predicting the Test set results
-
-# y_pred = classifier.predict(x_test);
-
-# print(np.concatenate((y_test.reshape(-1,1), y_pred.reshape(-1,1)), axis=1));
 
 # Methods / Parameters to check Suitability of Classification 
 
