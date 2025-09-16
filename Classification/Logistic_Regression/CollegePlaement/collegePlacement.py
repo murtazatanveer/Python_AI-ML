@@ -22,16 +22,18 @@ dataset.drop(columns=['College_ID', 'Prev_Sem_Result'], inplace=True);
 # Removing Outliars
 
 def removing_outliers_IQR(data, cols):
+    mask = pd.Series(True, index=data.index)  
+    
     for c in cols:
         Q1 = data[c].quantile(0.25)
         Q3 = data[c].quantile(0.75)
         IQR = Q3 - Q1
         lowerBound = Q1 - 1.5 * IQR
         upperBound = Q3 + 1.5 * IQR
-       
-        data = data[(data[c] >= lowerBound) & (data[c] <= upperBound)]
     
-    return data
+        mask &= (data[c] >= lowerBound) & (data[c] <= upperBound)
+    
+    return data[mask]
 
 print(len(dataset))
 dataset = removing_outliers_IQR(dataset,['IQ','CGPA','Academic_Performance','Extra_Curricular_Score','Communication_Skills','Projects_Completed']);

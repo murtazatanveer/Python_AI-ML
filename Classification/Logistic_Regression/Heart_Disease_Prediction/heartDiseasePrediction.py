@@ -1,19 +1,18 @@
 # Importing the Libraries
+
 import pandas as pd;
 import numpy as np;
 import matplotlib.pyplot as plt;
 
 # Importing the Dataset
 
-dataset = pd.read_csv("Social_Network_Ads.csv");
+dataset = pd.read_csv("heart.csv"); 
 
-# Data Cleaning 
+# Data Cleaning
 
 # print(dataset.info());
 
 # print(dataset.isnull().sum());
-
-print(dataset.corr(numeric_only=True));
 
 # Removing Outliars
 
@@ -32,7 +31,7 @@ def removing_outliers_IQR(data, cols):
     return data[mask]
 
 print(len(dataset))
-dataset = removing_outliers_IQR(dataset,['Age','EstimatedSalary']);
+dataset = removing_outliers_IQR(dataset,['Age','RestingBP',]);
 print(len(dataset))
 
 # Splitting DataSet into Independent Variables (x) and Dependent Variables (y)
@@ -40,11 +39,34 @@ print(len(dataset))
 x = dataset.iloc[:,:-1].values;
 y = dataset.iloc[:,-1].values;
 
+# Encoding the Independent Variable
+
+from sklearn.compose import ColumnTransformer;
+from sklearn.preprocessing import OneHotEncoder;
+
+ct = ColumnTransformer(
+
+    transformers=[
+        ("Country Encoding", OneHotEncoder(drop='first'), [1,2,6,8,10])
+    ],
+    remainder="passthrough"
+);
+
+x = np.array(ct.fit_transform(x));
+
+# Encoding the Dependent Variable
+
+from sklearn.preprocessing import LabelEncoder;
+
+le = LabelEncoder();
+y=le.fit_transform(y);
+
 # Splitting the Dataset into the Training Set and Test Set
 
 from sklearn.model_selection import train_test_split;
 
 x_train , x_test , y_train , y_test = train_test_split(x, y, test_size=0.2, random_state=0);
+
 
 # Feature Scaling
 
@@ -59,18 +81,8 @@ x = sc.transform(x);
 
 from sklearn.linear_model import LogisticRegression;
 
-classifier = LogisticRegression(random_state=0);
+classifier =  LogisticRegression(class_weight='balanced', max_iter=1000, random_state=42)
 classifier.fit(x_train,y_train);
-
-# Predicting a new result
-
-print(classifier.predict(sc.transform([[30,87000]])));
-
-# Predicting the Test set results
-
-# y_pred = classifier.predict(x_test);
-
-# print(np.concatenate((y_test.reshape(-1,1), y_pred.reshape(-1,1)), axis=1));
 
 # Methods / Parameters to check Suitability of Classification 
 
