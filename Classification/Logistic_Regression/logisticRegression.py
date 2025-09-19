@@ -72,59 +72,13 @@ print(classifier.predict(sc.transform([[30,87000]])));
 
 # print(np.concatenate((y_test.reshape(-1,1), y_pred.reshape(-1,1)), axis=1));
 
-# Methods / Parameters to check Suitability of Classification 
+# Evaluating the Model Performance
 
-from sklearn.metrics import (
-    confusion_matrix, accuracy_score, precision_score, recall_score, f1_score,
-    roc_auc_score, log_loss, roc_curve
-)
+import sys
+import os
 
-y_train_predict = classifier.predict(x_train)
-y_predict = classifier.predict(x)
-y_test_predict = classifier.predict(x_test);
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-y_prob = classifier.predict_proba(x)[:, 1];
-y_test_prob = classifier.predict_proba(x_test)[:, 1];
-y_train_prob = classifier.predict_proba(x_train)[:, 1];
+from classification_suitability_matrices import classification_suitability_Parameters;
+classification_suitability_Parameters(x,y, x_train, y_train, x_test, y_test, classifier);
 
-# 1. Confusion Matrix
-
-cm = confusion_matrix(y, y_predict);
-cm_train = confusion_matrix(y_train, y_train_predict);
-cm_test = confusion_matrix(y_test, y_test_predict);
-
-print("\n\nConfusion Matrix (Whole Set) : \n", cm);
-print("Confusion Matrix (Training Set) : \n", cm_train);
-print("Confusion Matrix (Test Set) : \n", cm_test);
-
-# 2. Accuracy
-
-print("\nAccuracy (Whole Set) : ", accuracy_score(y, y_predict));
-print("Accuracy (Training Set) : ", accuracy_score(y_train, y_train_predict));
-print("Accuracy (Test Set) : ", accuracy_score(y_test, y_test_predict));
-
-# 3. Precision, Recall, F1
-
-print("\nPrecision (Whole Set) : ", precision_score(y, y_predict));
-print("Precision (Training Set) : ", precision_score(y_train, y_train_predict));
-print("Precision (Test Set) : ", precision_score(y_test, y_test_predict));
-
-print("\nRecall (Whole Set) : ", recall_score(y, y_predict));
-print("Recall (Training Set) : ", recall_score(y_train, y_train_predict));
-print("Recall (Test Set) : ", recall_score(y_test, y_test_predict));
-
-print("\nF1 Score (Whole Set) : ", f1_score(y, y_predict));
-print("F1 Score (Training Set) : ", f1_score(y_train, y_train_predict));
-print("F1 Score (Test Set) : ", f1_score(y_test, y_test_predict));
-
-# 4. ROC-AUC
-
-print("\nROC-AUC (Whole Set) :", roc_auc_score(y, y_prob));
-print("ROC-AUC (Training Set) :", roc_auc_score(y_train, y_train_prob));
-print("ROC-AUC (Test Set) :", roc_auc_score(y_test, y_test_prob));
-
-# 5. Log Loss
-
-print("\nLog Loss (Whole Set) :", log_loss(y, y_prob));
-print("Log Loss (Training Set) :", log_loss(y_train, y_train_prob));
-print("Log Loss (Test Set) :", log_loss(y_test, y_test_prob));
