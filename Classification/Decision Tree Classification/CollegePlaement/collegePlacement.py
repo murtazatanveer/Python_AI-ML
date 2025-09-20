@@ -54,7 +54,7 @@ from sklearn.preprocessing import OneHotEncoder;
 ct = ColumnTransformer(
 
     transformers=[
-        ("Country Encoding", OneHotEncoder(drop='first'), [3])
+        ("Country Encoding", OneHotEncoder(), [3])
     ],
     remainder="passthrough"
 );
@@ -93,9 +93,7 @@ from sklearn.tree import DecisionTreeClassifier;
 classifier = DecisionTreeClassifier(criterion="gini" , random_state=0 , max_depth=4);
 classifier.fit(x_train,y_train);
 
-from sklearn.model_selection import cross_val_score
-scores_f1 = cross_val_score(classifier, x, y, cv=5, scoring='f1')
-print("F1 Scores:", scores_f1)
+
 
 # Evaluating the Model Performance
 

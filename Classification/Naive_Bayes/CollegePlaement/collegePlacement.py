@@ -6,13 +6,18 @@ import matplotlib.pyplot as plt;
 
 # Importing the Dataset
 
-dataset = pd.read_csv("heart.csv"); 
+dataset = pd.read_csv("CollegePlacement.csv");
 
 # Data Cleaning
+
+dataset.drop(columns=['College_ID', 'Prev_Sem_Result'], inplace=True);
 
 # print(dataset.info());
 
 # print(dataset.isnull().sum());
+
+# print(dataset.corr(numeric_only=True));
+
 
 # Removing Outliars
 
@@ -31,12 +36,14 @@ def removing_outliers_IQR(data, cols):
     return data[mask]
 
 print(len(dataset))
-dataset = removing_outliers_IQR(dataset,['Age','RestingBP',]);
-print(len(dataset))
+dataset = removing_outliers_IQR(dataset,['IQ','CGPA','Academic_Performance','Extra_Curricular_Score','Communication_Skills','Projects_Completed']);
+print(len(dataset)) 
 
 # Splitting DataSet into Independent Variables (x) and Dependent Variables (y)
 
+
 x = dataset.iloc[:,:-1].values;
+
 y = dataset.iloc[:,-1].values;
 
 # Encoding the Independent Variable
@@ -47,12 +54,15 @@ from sklearn.preprocessing import OneHotEncoder;
 ct = ColumnTransformer(
 
     transformers=[
-        ("Country Encoding", OneHotEncoder(), [1,2,6,8,10])
+        ("Country Encoding", OneHotEncoder(), [3])
     ],
     remainder="passthrough"
 );
 
 x = np.array(ct.fit_transform(x));
+
+noise = np.random.normal(0, 0.5, size=x.shape)
+x = x + noise
 
 # Encoding the Dependent Variable
 
@@ -67,7 +77,6 @@ from sklearn.model_selection import train_test_split;
 
 x_train , x_test , y_train , y_test = train_test_split(x, y, test_size=0.2, random_state=0);
 
-
 # Feature Scaling
 
 from sklearn.preprocessing import StandardScaler;
@@ -77,15 +86,12 @@ x_train = sc.fit_transform(x_train)
 x_test = sc.transform(x_test)
 x = sc.transform(x); 
 
-# Training the Decision Tree Classifier model on the Training set
 
-from sklearn.tree import DecisionTreeClassifier;
-classifier = DecisionTreeClassifier(  criterion="gini",
-    max_depth=4,          # limit depth
-    min_samples_split=10, # prevent tiny splits
-    min_samples_leaf=5,   # ensure minimum samples in leaf
-    random_state=0);
-classifier.fit(x_train,y_train);
+# Training the Naive Bayes Calssification on the Training set
+
+from sklearn.naive_bayes import GaussianNB;
+classifier = GaussianNB();
+classifier.fit(x_train, y_train);
 
 # Evaluating the Model Performance
 

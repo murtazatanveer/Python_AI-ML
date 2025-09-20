@@ -77,15 +77,13 @@ x_train = sc.fit_transform(x_train)
 x_test = sc.transform(x_test)
 x = sc.transform(x); 
 
-# Training the Decision Tree Classifier model on the Training set
+# Training the Random Forecast Classification model on the Training set
 
-from sklearn.tree import DecisionTreeClassifier;
-classifier = DecisionTreeClassifier(  criterion="gini",
-    max_depth=4,          # limit depth
+from sklearn.ensemble import RandomForestClassifier
+classifier = RandomForestClassifier(n_estimators = 20, criterion = 'entropy', random_state = 0 , max_depth=4,          # limit depth
     min_samples_split=10, # prevent tiny splits
-    min_samples_leaf=5,   # ensure minimum samples in leaf
-    random_state=0);
-classifier.fit(x_train,y_train);
+    min_samples_leaf=5);  # prevent tiny leaves
+classifier.fit(x_train, y_train);
 
 # Evaluating the Model Performance
 
